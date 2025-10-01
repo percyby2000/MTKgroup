@@ -1,0 +1,421 @@
+---
+// Hero.astro
+---
+
+<style>
+    .slide {
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: scale(1.05);
+    }
+    
+    .slide.active {
+        transform: scale(1);
+    }
+    
+    .slide:not(.active) {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    
+    .slider-container {
+        background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+    }
+    
+    .dot {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(4px);
+    }
+    
+    .dot:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+    
+    .dot.active {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+</style>
+
+<section class="relative h-[500px] md:h-[500px] lg:h-[600px] overflow-hidden">
+    <!-- Slider container -->
+    <div class="slider-container relative w-full h-full">
+        
+        <!-- Slide 1 -->
+        <div class="slide active absolute inset-0 w-full h-full">
+            <div class="w-full h-full bg-cover bg-center">
+                <!-- Desktop Image -->
+                <div 
+                    class="hidden md:block w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/banner1.png');"
+                ></div>
+                <!-- Mobile Banner -->
+                <div 
+                    class="md:hidden w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/movil1.svg');"
+                ></div>
+                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="slide absolute inset-0 w-full h-full opacity-0">
+            <div class="w-full h-full bg-cover bg-center">
+                <!-- Desktop Image -->
+                <div 
+                    class="hidden md:block w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/banner3.png');"
+                ></div>
+                <!-- Mobile Banner -->
+                <div 
+                    class="md:hidden w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/movil2.svg');"
+                ></div>
+                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide absolute inset-0 w-full h-full opacity-0">
+            <div class="w-full h-full bg-cover bg-center">
+                <!-- Desktop Image -->
+                <div 
+                    class="hidden md:block w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/banner4.png');"
+                ></div>
+                <!-- Mobile Banner -->
+                <div 
+                    class="md:hidden w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/movil3.svg');"
+                ></div>
+                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            </div>
+        </div>
+        
+        <!-- Slide 4 -->
+        <div class="slide absolute inset-0 w-full h-full opacity-0">
+            <div class="w-full h-full bg-cover bg-center">
+                <!-- Desktop Image -->
+                <div 
+                    class="hidden md:block w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/banner5.png');"
+                ></div>
+                <!-- Mobile Banner -->
+                <div 
+                    class="md:hidden w-full h-full bg-cover bg-center"
+                    style="background-image: url('/slider/movil4.svg');"
+                ></div>
+                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Formulario desktop -->
+    <div class="hidden md:block absolute bottom-8 left-2/3 transform-none z-20">
+        <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 w-72">
+            <div class="text-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-1">
+                    ¡CONTÁCTANOS!
+                </h3>
+                <p class="text-xs text-gray-600">
+                    Internet de alta velocidad
+                </p>
+            </div>
+            
+            <form id="whatsappForm" class="space-y-3">
+                <input 
+                    type="text" 
+                    id="nombre"
+                    placeholder="Nombres" 
+                    class="w-full p-2.5 border border-gray-300 rounded-lg text-sm transition-all duration-300 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
+                    required
+                >
+                
+                <input 
+                    type="tel" 
+                    id="telefono"
+                    placeholder="Teléfono" 
+                    class="w-full p-2.5 border border-gray-300 rounded-lg text-sm transition-all duration-300 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
+                    required
+                >
+                
+                <button 
+                    type="submit" 
+                    class="w-full bg-black hover:bg-gray-800 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                >
+                    ¡Lo quiero!
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Botón móvil para mostrar formulario -->
+    <div class="md:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20">
+        <button 
+            id="showFormBtn"
+            class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-base shadow-lg transition-all duration-300 hover:scale-105"
+        >
+            ¡Lo quiero!
+        </button>
+    </div>
+
+    <!-- Modal formulario móvil -->
+    <div id="mobileFormModal" class="md:hidden fixed inset-0 bg-black/50 z-50 hidden">
+        <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 transform translate-y-full transition-transform duration-300" id="modalContent">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-800">Solicitar Internet</h3>
+                <button id="closeFormBtn" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="whatsappFormMobile" class="space-y-3">
+                <input 
+                    type="text" 
+                    id="nombreMobile"
+                    placeholder="Tu nombre" 
+                    class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:border-orange-500 focus:outline-none"
+                    required
+                >
+                
+                <input 
+                    type="tel" 
+                    id="telefonoMobile"
+                    placeholder="Tu teléfono" 
+                    class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:border-orange-500 focus:outline-none"
+                    required
+                >
+                
+                <button 
+                    type="submit" 
+                    class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg text-sm transition-all duration-300"
+                >
+                    Enviar solicitud
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Controles del slider -->
+    <div class="absolute bottom-4 left-4 md:left-1/4 flex space-x-2 z-20">
+        <button class="dot active w-3 h-3 bg-white rounded-full cursor-pointer transition-all duration-300 hover:scale-125" data-slide="0"></button>
+        <button class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer transition-all duration-300 hover:scale-125" data-slide="1"></button>
+        <button class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer transition-all duration-300 hover:scale-125" data-slide="2"></button>
+        <button class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer transition-all duration-300 hover:scale-125" data-slide="3"></button>
+    </div>
+    
+    <!-- Navegación lateral -->
+    <button id="prevBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/60 text-white p-3 rounded-full transition-all duration-500 backdrop-blur-md z-20 hover:scale-110 hover:shadow-xl">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
+    
+    <button id="nextBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/60 text-white p-3 rounded-full transition-all duration-500 backdrop-blur-md z-20 hover:scale-110 hover:shadow-xl">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+    </button>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide') as NodeListOf<HTMLElement>;
+        const dots = document.querySelectorAll('.dot') as NodeListOf<HTMLElement>;
+        const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement;
+        const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+        const totalSlides = slides.length;
+
+        function showSlide(index: number) {
+            // Hide all slides with smooth transition
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    // Fade in current slide
+                    slide.style.opacity = '1';
+                    slide.style.zIndex = '10';
+                    slide.classList.add('active');
+                } else {
+                    // Fade out other slides
+                    slide.style.opacity = '0';
+                    slide.style.zIndex = '5';
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update dots with modern effects
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-white');
+                } else {
+                    dot.classList.remove('active');
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('bg-white/50');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Event listeners for navigation
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+        // Event listeners for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        // Initialize first slide
+        showSlide(0);
+
+        // Auto-slide every 4 seconds
+        let autoSlideInterval = setInterval(nextSlide, 4000);
+
+        // Pause auto-slide on hover
+        const sliderContainer = document.querySelector('.slider-container') as HTMLElement;
+        if (sliderContainer) {
+            sliderContainer.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+
+            sliderContainer.addEventListener('mouseleave', () => {
+                autoSlideInterval = setInterval(nextSlide, 4000);
+            });
+        }
+
+        // WhatsApp form functionality
+        const form = document.getElementById('whatsappForm') as HTMLFormElement;
+        
+        // Número de WhatsApp de la empresa (cambia este número por el de tu empresa)
+        const numeroWhatsApp = '573001234567'; // Formato: código país + número sin +
+        
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nombreInput = document.getElementById('nombre') as HTMLInputElement;
+                const telefonoInput = document.getElementById('telefono') as HTMLInputElement;
+                
+                const nombre = nombreInput?.value.trim() || '';
+                const telefono = telefonoInput?.value.trim() || '';
+                
+                // Validar que los campos no estén vacíos
+                if (!nombre || !telefono) {
+                    alert('Por favor, completa todos los campos');
+                    return;
+                }
+                
+                // Crear el mensaje para WhatsApp
+                const mensaje = `¡Hola! Me interesa obtener internet de alta velocidad.%0A%0A👤 Nombre: ${encodeURIComponent(nombre)}%0A📞 Teléfono: ${encodeURIComponent(telefono)}%0A%0A¿Podrían contactarme para conocer más sobre sus planes y precios?%0A%0A¡Gracias!`;
+                
+                // Crear la URL de WhatsApp
+                const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+                
+                // Abrir WhatsApp en una nueva ventana
+                window.open(urlWhatsApp, '_blank');
+                
+                // Mostrar mensaje de confirmación
+                const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                if (button) {
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '✅ ¡ENVIADO!';
+                    button.style.backgroundColor = '#10b981';
+                    
+                    // Restaurar botón después de 2 segundos
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.style.backgroundColor = '';
+                        form.reset();
+                    }, 2000);
+                }
+            });
+        }
+
+        // Mobile modal functionality
+        const showFormBtn = document.getElementById('showFormBtn') as HTMLButtonElement;
+        const mobileFormModal = document.getElementById('mobileFormModal') as HTMLElement;
+        const modalContent = document.getElementById('modalContent') as HTMLElement;
+        const closeFormBtn = document.getElementById('closeFormBtn') as HTMLButtonElement;
+
+        if (showFormBtn && mobileFormModal) {
+            showFormBtn.addEventListener('click', function() {
+                mobileFormModal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.style.transform = 'translateY(0)';
+                }, 10);
+            });
+
+            if (closeFormBtn) {
+                closeFormBtn.addEventListener('click', function() {
+                    modalContent.style.transform = 'translateY(100%)';
+                    setTimeout(() => {
+                        mobileFormModal.classList.add('hidden');
+                    }, 300);
+                });
+            }
+
+            // Close modal when clicking outside
+            mobileFormModal.addEventListener('click', function(e) {
+                if (e.target === mobileFormModal) {
+                    modalContent.style.transform = 'translateY(100%)';
+                    setTimeout(() => {
+                        mobileFormModal.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        }
+
+        // WhatsApp form functionality for mobile modal
+        const formMobile = document.getElementById('whatsappFormMobile') as HTMLFormElement;
+        if (formMobile) {
+            formMobile.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nombreInputMobile = document.getElementById('nombreMobile') as HTMLInputElement;
+                const telefonoInputMobile = document.getElementById('telefonoMobile') as HTMLInputElement;
+                
+                const nombre = nombreInputMobile?.value.trim() || '';
+                const telefono = telefonoInputMobile?.value.trim() || '';
+                
+                // Validar que los campos no estén vacíos
+                if (!nombre || !telefono) {
+                    alert('Por favor, completa todos los campos');
+                    return;
+                }
+                
+                // Crear el mensaje para WhatsApp
+                const mensaje = `¡Hola! Me interesa obtener internet de alta velocidad.%0A%0A👤 Nombre: ${encodeURIComponent(nombre)}%0A📞 Teléfono: ${encodeURIComponent(telefono)}%0A%0A¿Podrían contactarme para conocer más sobre sus planes y precios?%0A%0A¡Gracias!`;
+                
+                // Crear la URL de WhatsApp
+                const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+                
+                // Abrir WhatsApp en una nueva ventana
+                window.open(urlWhatsApp, '_blank');
+                
+                // Close modal after sending
+                modalContent.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    mobileFormModal.classList.add('hidden');
+                    formMobile.reset();
+                }, 300);
+            });
+        }
+    });
+</script>
+
