@@ -434,10 +434,10 @@ const estadisticas = {
       zoomInBtn.addEventListener('click', () => {
         if (zoomLevel < maxZoom) {
           zoomLevel += zoomStep;
-          mapBase.style.transform = `scale(${zoomLevel})`;
+          (mapBase as HTMLElement).style.transform = `scale(${zoomLevel})`;
         } else {
           zoomLevel = 1;
-          mapBase.style.transform = '';
+          (mapBase as HTMLElement).style.transform = '';
         }
       });
     }
@@ -462,8 +462,8 @@ const estadisticas = {
         
         // Efecto visual
         if (mapBase) {
-          mapBase.style.opacity = '0.7';
-          setTimeout(() => mapBase.style.opacity = '', 500);
+          (mapBase as HTMLElement).style.opacity = '0.7';
+          setTimeout(() => (mapBase as HTMLElement).style.opacity = '', 500);
         }
       });
     });
@@ -477,8 +477,11 @@ const estadisticas = {
           
           if (name && tooltip) {
             // Contenido
-            tooltip.querySelector('.font-medium').textContent = name;
-            tooltip.querySelector('.text-[10px]').textContent = status;
+            const titleElement = tooltip.querySelector('.font-medium');
+            const statusElement = tooltip.querySelector('.text-[10px]');
+            
+            if (titleElement) titleElement.textContent = name;
+            if (statusElement) statusElement.textContent = status;
             
             // Posición
             const svgRect = distrito.getBoundingClientRect();
@@ -514,17 +517,23 @@ const estadisticas = {
       const id = item.getAttribute('data-distrito');
       
       item.addEventListener('mouseenter', () => {
-        const mapaDistrito = document.querySelector(`circle[data-distrito="${id}"]`);
+        const mapaDistrito = document.querySelector(`circle[data-distrito="${id}"]`) as HTMLElement;
         if (mapaDistrito) {
-          mapaDistrito.setAttribute('r', (parseFloat(mapaDistrito.getAttribute('r')) * 1.2).toString());
+          const currentR = mapaDistrito.getAttribute('r');
+          if (currentR) {
+            mapaDistrito.setAttribute('r', (parseFloat(currentR) * 1.2).toString());
+          }
           mapaDistrito.style.filter = 'drop-shadow(0 0 6px rgba(249,115,22,0.4))';
         }
       });
       
       item.addEventListener('mouseleave', () => {
-        const mapaDistrito = document.querySelector(`circle[data-distrito="${id}"]`);
+        const mapaDistrito = document.querySelector(`circle[data-distrito="${id}"]`) as HTMLElement;
         if (mapaDistrito) {
-          mapaDistrito.setAttribute('r', (parseFloat(mapaDistrito.getAttribute('r')) / 1.2).toString());
+          const currentR = mapaDistrito.getAttribute('r');
+          if (currentR) {
+            mapaDistrito.setAttribute('r', (parseFloat(currentR) / 1.2).toString());
+          }
           mapaDistrito.style.filter = '';
         }
       });
@@ -536,8 +545,8 @@ const estadisticas = {
         const id = distrito.getAttribute('data-distrito');
         
         // Efecto visual
-        distrito.style.filter = 'brightness(1.2) drop-shadow(0 0 8px rgba(249,115,22,0.6))';
-        setTimeout(() => distrito.style.filter = '', 800);
+        (distrito as HTMLElement).style.filter = 'brightness(1.2) drop-shadow(0 0 8px rgba(249,115,22,0.6))';
+        setTimeout(() => (distrito as HTMLElement).style.filter = '', 800);
         
         // Scroll a info
         const infoSection = document.querySelector(`li[data-distrito="${id}"]`);
@@ -552,37 +561,38 @@ const estadisticas = {
     // Permitir arrastrar el mapa
     if (mapBase) {
       let isDragging = false;
-      let startX, startY, initialLeft, initialTop;
+      let startX: number, startY: number, initialLeft: number, initialTop: number;
       
       mapBase.addEventListener('mousedown', (e) => {
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        const mouseEvent = e as MouseEvent;
+        startX = mouseEvent.clientX;
+        startY = mouseEvent.clientY;
         
-        const style = window.getComputedStyle(mapBase);
+        const style = window.getComputedStyle(mapBase as HTMLElement);
         initialLeft = parseInt(style.left) || 0;
         initialTop = parseInt(style.top) || 0;
         
-        mapBase.style.cursor = 'grabbing';
+        (mapBase as HTMLElement).style.cursor = 'grabbing';
       });
-      
       window.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
+        const mouseEvent = e as MouseEvent;
+        const dx = mouseEvent.clientX - startX;
+        const dy = mouseEvent.clientY - startY;
         
-        mapBase.style.left = `${initialLeft + dx}px`;
-        mapBase.style.top = `${initialTop + dy}px`;
+        (mapBase as HTMLElement).style.left = `${initialLeft + dx}px`;
+        (mapBase as HTMLElement).style.top = `${initialTop + dy}px`;
       });
       
       window.addEventListener('mouseup', () => {
         isDragging = false;
-        mapBase.style.cursor = 'grab';
+        (mapBase as HTMLElement).style.cursor = 'grab';
       });
       
-      mapBase.style.position = 'relative';
-      mapBase.style.cursor = 'grab';
+      (mapBase as HTMLElement).style.position = 'relative';
+      (mapBase as HTMLElement).style.cursor = 'grab';
     }
   });
 </script>

@@ -1,0 +1,99 @@
+---
+const beneficios = [
+  {
+    titulo: "100% Fibra óptica",
+    descripcion: "Experimenta una conexión sin límites con el verdadero internet fibra óptica.",
+    icono: "fibra"
+  },
+  {
+    titulo: "+velocidad",
+    descripcion: "Somos el internet más rápido del Perú. Hasta 5000 Mbps de velocidad.",
+    icono: "velocidad"
+  },
+  {
+    titulo: "+estabilidad",
+    descripcion: "Descarga, transmite y juega con el internet más estable de Latinoamérica.",
+    icono: "estabilidad"
+  },
+  {
+    titulo: "+conectividad",
+    descripcion: "Conéctate en más dispositivos sin perder calidad ni velocidad.",
+    icono: "conectividad"
+  }
+];
+---
+
+<section class="bg-gradient-to-r from-orange-600 to-orange-500 py-16 px-4 overflow-hidden relative">
+  <!-- Elementos decorativos -->
+  <div class="absolute top-0 left-0 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-0 right-0 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl"></div>
+  <div class="absolute top-1/2 left-1/4 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+  
+  <div class="container mx-auto max-w-6xl">
+    <p class="text-white/90 text-center mb-6">* Para clientes que vienen de otro operador</p>
+    
+    <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16">
+      Beneficios de nuestro Internet Fibra Óptica
+    </h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {beneficios.map(beneficio => (
+        <div class="text-center group">
+          <div class="inline-flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1">
+            {beneficio.icono === "fibra" && (
+              <svg class="w-20 h-20 text-white" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26.6667 16.6667V60.0001M26.6667 60.0001H20.0001M26.6667 60.0001H33.3334" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M53.3333 16.6667V60.0001M53.3333 60.0001H46.6666M53.3333 60.0001H59.9999" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M40 13.3333C35.5817 13.3333 32 9.75163 32 5.33325H48C48 9.75163 44.4183 13.3333 40 13.3333Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M26.6667 16.6667C29.4281 16.6667 31.6667 14.4281 31.6667 11.6667V5.33334H23.6667V11.6667C23.6667 14.4281 25.9052 16.6667 28.6667 16.6667H26.6667ZM26.6667 16.6667H53.3333M53.3333 16.6667C50.5719 16.6667 48.3333 14.4281 48.3333 11.6667V5.33334H56.3333V11.6667C56.3333 14.4281 54.0948 16.6667 51.3333 16.6667H53.3333Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            )}
+            
+            {beneficio.icono === "velocidad" && (
+              <svg class="w-20 h-20 text-white" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M73.3333 40C73.3333 58.4095 58.4095 73.3333 40 73.3333C21.5905 73.3333 6.66666 58.4095 6.66666 40C6.66666 21.5905 21.5905 6.66667 40 6.66667C58.4095 6.66667 73.3333 21.5905 73.3333 40Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M40 40L55.6569 24.3431" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M36.6667 20H43.3333" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M60 36.6667V43.3334" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 36.6667V43.3334" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M36.6667 60H43.3333" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            )}
+            
+            {beneficio.icono === "estabilidad" && (
+              <svg class="w-20 h-20 text-white" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="13.3333" width="60" height="46.6667" rx="4" stroke="currentColor" stroke-width="3"/>
+                <path d="M26.6667 50L26.6667 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M40 50L40 33.3333" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M53.3333 50L53.3333 26.6667" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M10 60H70" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M23.3333 66.6667H56.6667" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            )}
+            
+            {beneficio.icono === "conectividad" && (
+              <svg class="w-20 h-20 text-white" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M66.6667 46.6667V23.3334C66.6667 20.5719 64.4281 18.3334 61.6667 18.3334H18.3333C15.5719 18.3334 13.3333 20.5719 13.3333 23.3334V46.6667C13.3333 49.4281 15.5719 51.6667 18.3333 51.6667H61.6667C64.4281 51.6667 66.6667 49.4281 66.6667 46.6667Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M40 51.6667V61.6667" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M26.6667 61.6667H53.3333" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M50 35C50 30.5817 46.4183 27 42 27C37.5817 27 34 30.5817 34 35" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M54 31C54 24.3726 48.6274 19 42 19C35.3726 19 30 24.3726 30 31" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="42" cy="39" r="3" stroke="currentColor" stroke-width="3"/>
+              </svg>
+            )}
+          </div>
+          
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">
+            {beneficio.titulo}
+          </h3>
+          
+          <p class="text-white/85 leading-relaxed max-w-xs mx-auto">
+            {beneficio.descripcion}
+          </p>
+          
+          <div class="w-1/2 h-px bg-white/25 mt-10 mx-auto"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
