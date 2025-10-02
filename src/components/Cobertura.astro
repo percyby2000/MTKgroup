@@ -1,0 +1,588 @@
+---
+// Datos de distritos simplificados
+const distritos = [
+  { id: "ayacucho", nombre: "Ayacucho", cobertura: true, coords: {x: 425, y: 370}, radio: 12 },
+  { id: "sanJuanBautista", nombre: "San Juan Bautista", cobertura: true, coords: {x: 435, y: 385}, radio: 8 },
+  { id: "carmen", nombre: "Carmen Alto", cobertura: true, coords: {x: 415, y: 380}, radio: 8 },
+  { id: "andres", nombre: "Andrés A. Cáceres", cobertura: true, coords: {x: 445, y: 375}, radio: 8 },
+  { id: "jesus", nombre: "Jesús Nazareno", cobertura: true, coords: {x: 435, y: 355}, radio: 8 },
+  { id: "pacaycasa", nombre: "Pacaycasa", cobertura: true, coords: {x: 445, y: 340}, radio: 8 },
+  { id: "quinua", nombre: "Quinua", cobertura: false, coords: {x: 470, y: 345}, radio: 6 },
+  { id: "tambillo", nombre: "Tambillo", cobertura: false, coords: {x: 410, y: 400}, radio: 6 },
+  { id: "acos", nombre: "Acos Vinchos", cobertura: false, coords: {x: 455, y: 405}, radio: 6 },
+  { id: "socos", nombre: "Socos", cobertura: false, coords: {x: 385, y: 365}, radio: 6 },
+  { id: "ocros", nombre: "Ocros", cobertura: false, coords: {x: 370, y: 390}, radio: 6 },
+  { id: "santiago", nombre: "Santiago de Pischa", cobertura: false, coords: {x: 420, y: 325}, radio: 6 }
+];
+
+// Opciones de zonas
+const zonas = [
+  { id: "huamanga", nombre: "Huamanga", activo: true },
+  { id: "huanta", nombre: "Huanta", activo: false },
+  { id: "lamar", nombre: "La Mar", activo: false }
+];
+
+const estadisticas = {
+  huamanga: {
+    poblacionCubierta: "86%",
+    velocidadMax: "1 Gbps",
+    distritosActivos: 6
+  }
+};
+---
+
+<section class="py-10 px-4 bg-gradient-to-br from-white to-orange-50/30 overflow-hidden relative">
+  <!-- Elementos decorativos -->
+  <div class="absolute -top-64 -right-64 w-[30rem] h-[30rem] bg-orange-100/20 rounded-full blur-3xl"></div>
+  <div class="absolute -bottom-32 -left-32 w-[20rem] h-[20rem] bg-blue-100/20 rounded-full blur-3xl"></div>
+  
+  <div class="container mx-auto max-w-6xl relative">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent mb-2">
+        Cobertura de Fibra Óptica en Ayacucho
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-sm">
+        Conoce las zonas donde contamos con infraestructura de alta velocidad
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Contenido lado izquierdo -->
+      <div class="lg:col-span-5 flex flex-col">
+        <div class="bg-white rounded-xl overflow-hidden mb-4 shadow-sm border border-gray-100">
+          <div class="flex">
+            {zonas.map((zona) => (
+              <button 
+                class={`py-2.5 px-3 flex-1 text-center font-medium transition-all duration-200 relative ${
+                  zona.activo ? "text-orange-600" : "text-gray-600 hover:text-gray-900"
+                }`}
+                data-zona={zona.id}
+              >
+                {zona.nombre}
+                {zona.activo && (
+                  <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-orange-400"></span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 flex-grow">
+          <p class="text-gray-700 mb-4 text-sm">
+            Conoce nuestra cobertura de Fibra Óptica en los distritos de Huamanga:
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Distritos con cobertura -->
+            <div>
+              <h3 class="text-base font-bold text-gray-800 flex items-center mb-3">
+                <span class="inline-flex items-center justify-center w-6 h-6 bg-green-100 text-green-600 rounded-lg mr-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </span>
+                Con cobertura
+              </h3>
+              <ul class="space-y-2">
+                {distritos.filter(d => d.cobertura).map(distrito => (
+                  <li class="flex items-center group cursor-pointer text-sm" data-distrito={distrito.id}>
+                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-100 text-orange-600 mr-2">
+                      <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                      </svg>
+                    </span>
+                    <span class="text-gray-700 group-hover:text-orange-600 transition-colors">
+                      {distrito.nombre}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <!-- Distritos próximos -->
+            <div>
+              <h3 class="text-base font-bold text-gray-800 flex items-center mb-3">
+                <span class="inline-flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-600 rounded-lg mr-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                  </svg>
+                </span>
+                Próximamente
+              </h3>
+              <ul class="space-y-2">
+                {distritos.filter(d => !d.cobertura).map(distrito => (
+                  <li class="flex items-center opacity-75 hover:opacity-100 cursor-pointer group text-sm" data-distrito={distrito.id}>
+                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-blue-500 mr-2">
+                      <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                      </svg>
+                    </span>
+                    <span class="text-gray-600 group-hover:text-blue-600 transition-colors">
+                      {distrito.nombre}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Estadísticas simplificadas -->
+          <div class="mt-6 pt-4 border-t border-gray-100">
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-2 text-center">
+                <p class="text-xs text-gray-600 mb-1">Población</p>
+                <p class="text-sm font-bold text-orange-700">{estadisticas.huamanga.poblacionCubierta}</p>
+              </div>
+              <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-2 text-center">
+                <p class="text-xs text-gray-600 mb-1">Velocidad</p>
+                <p class="text-sm font-bold text-orange-700">{estadisticas.huamanga.velocidadMax}</p>
+              </div>
+              <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-2 text-center">
+                <p class="text-xs text-gray-600 mb-1">Distritos</p>
+                <p class="text-sm font-bold text-orange-700">{estadisticas.huamanga.distritosActivos}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 grid grid-cols-2 gap-3">
+            <a 
+              href="#verificar" 
+              class="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-medium rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-sm hover:shadow"
+            >
+              <svg class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+              </svg>
+              Verificar dirección
+            </a>
+            
+            <a 
+              href="#zonas" 
+              class="inline-flex items-center justify-center px-4 py-2 bg-white text-orange-500 text-sm font-medium rounded-lg border border-orange-200 hover:bg-orange-50 transition-all duration-200"
+            >
+              <svg class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" />
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" />
+              </svg>
+              Ver zonas
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mapa (lado derecho) -->
+      <div class="lg:col-span-7">
+        <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 h-full relative">
+          <!-- Leyenda del mapa -->
+          <div class="absolute top-3 right-3 z-10">
+            <div class="flex items-center p-1.5 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100 text-xs">
+              <div class="flex items-center mr-3">
+                <div class="w-2.5 h-2.5 bg-orange-500 rounded-full mr-1 pulse-dot-orange"></div>
+                <span class="font-medium text-gray-700">Con cobertura</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-2.5 h-2.5 bg-blue-400 rounded-full mr-1"></div>
+                <span class="font-medium text-gray-700">Próximamente</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contenedor del mapa -->
+          <div class="relative w-full h-[450px] overflow-hidden" id="map-container">
+            <div id="map-tooltip" class="absolute hidden bg-white p-1.5 rounded shadow text-xs z-20 border border-gray-200 pointer-events-none transform -translate-x-1/2 -translate-y-full">
+              <div class="font-medium text-gray-900"></div>
+              <div class="text-[10px] text-gray-600"></div>
+              <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-white border-r border-b border-gray-200"></div>
+            </div>
+            
+            <!-- Mapa con SVG -->
+            <div class="w-full h-full relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-orange-50/20 to-blue-50/20 z-0"></div>
+              
+              <div class="relative z-10 w-full h-full flex items-center justify-center">
+                <div class="w-full h-full map-wrapper">
+                  <img 
+                    src="/Mapa_de_localización_Ayacucho.svg" 
+                    alt="Mapa de Ayacucho" 
+                    class="w-full h-full object-contain map-base" 
+                    style="filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.08)) saturate(1.2);"
+                  />
+                  
+                  <!-- Capa de superposición -->
+                  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid meet">
+                    <!-- Definiciones -->
+                    <defs>
+                      <radialGradient id="huamanga-highlight" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+                        <stop offset="0%" stop-color="#FDBA74" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#FDBA74" stop-opacity="0" />
+                      </radialGradient>
+                    </defs>
+                    
+                    <!-- Resaltado provincia -->
+                    <circle cx="425" cy="370" r="120" fill="url(#huamanga-highlight)" class="animate-pulse-slow" />
+                    
+                    <!-- Distritos -->
+                    {distritos.map((distrito) => (
+                      distrito.cobertura ? (
+                        <circle 
+                          cx={distrito.coords.x} 
+                          cy={distrito.coords.y} 
+                          r={distrito.radio} 
+                          fill="#FB923C" 
+                          fill-opacity="0.85"
+                          stroke="#FFFFFF" 
+                          stroke-width="1.5"
+                          class={distrito.id === "ayacucho" ? "pulse-circle" : "hover-district"}
+                          data-name={distrito.nombre}
+                          data-status="Cobertura activa"
+                          data-distrito={distrito.id}
+                        />
+                      ) : (
+                        <circle 
+                          cx={distrito.coords.x} 
+                          cy={distrito.coords.y} 
+                          r={distrito.radio} 
+                          fill="#60A5FA"
+                          fill-opacity="0.7" 
+                          stroke="#FFFFFF" 
+                          stroke-width="1"
+                          class="hover-district"
+                          data-name={distrito.nombre}
+                          data-status="Próximamente"
+                          data-distrito={distrito.id}
+                        />
+                      )
+                    ))}
+                    
+                    <!-- Línea de fibra -->
+                    <path 
+                      d="M200,260 C250,280 300,310 350,330 C400,350 425,365 425,370" 
+                      stroke="#FB923C" 
+                      stroke-width="2" 
+                      stroke-dasharray="6,3" 
+                      stroke-linecap="round"
+                      class="fiber-line"
+                      fill="none"
+                    />
+                    
+                    <!-- Etiqueta principal -->
+                    <text x="425" y="355" fill="#333333" font-size="10" font-weight="bold" text-anchor="middle" class="map-label">Ayacucho</text>
+                    
+                    <!-- Brújula -->
+                    <g transform="translate(700, 230)" class="compass">
+                      <circle cx="0" cy="0" r="20" fill="white" stroke="#E5E7EB" stroke-width="1.5" />
+                      <path d="M0,-15 L0,15 M-15,0 L15,0" stroke="#E2E8F0" stroke-width="0.75" />
+                      <path d="M0,-15 L0,-5" stroke="#FB923C" stroke-width="1.5" stroke-linecap="round" />
+                      <text x="0" y="-8" fill="#FB923C" font-size="8" text-anchor="middle" font-weight="bold">N</text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Panel informativo -->
+            <div class="absolute bottom-3 left-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100 max-w-[180px]">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center mr-2">
+                  <svg class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 text-sm">Huamanga</h3>
+                  <p class="text-xs text-gray-500">{estadisticas.huamanga.distritosActivos} distritos</p>
+                </div>
+              </div>
+              <div class="bg-orange-50 p-2 rounded">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-[10px] text-gray-600">Velocidad</span>
+                  <span class="text-[10px] font-medium text-orange-600">{estadisticas.huamanga.velocidadMax}</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1">
+                  <div class="bg-orange-500 h-1 rounded-full" style="width: 80%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Botones de zoom -->
+            <div class="absolute bottom-3 right-3">
+              <button class="bg-white p-2 rounded-full shadow-sm border border-gray-200 hover:bg-orange-50 transition-all duration-200 zoom-in-btn" aria-label="Acercar mapa">
+                <svg class="w-4 h-4 text-gray-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .map-base {
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .hover-district {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .hover-district:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.4));
+  }
+  
+  .map-label {
+    pointer-events: none;
+    user-select: none;
+  }
+  
+  .pulse-circle {
+    animation: pulse 3s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      filter: drop-shadow(0 0 0 rgba(249, 115, 22, 0));
+    }
+    
+    50% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.5));
+    }
+    
+    100% {
+      transform: scale(0.95);
+      filter: drop-shadow(0 0 0 rgba(249, 115, 22, 0));
+    }
+  }
+  
+  .pulse-dot-orange {
+    animation: pulseDot 2s infinite;
+  }
+  
+  @keyframes pulseDot {
+    0% {
+      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+    }
+    
+    70% {
+      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0);
+    }
+    
+    100% {
+      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+    }
+  }
+  
+  .fiber-line {
+    stroke-dashoffset: 100;
+    animation: dashOffset 8s linear infinite;
+  }
+  
+  @keyframes dashOffset {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  .compass:hover {
+    transform: translate(700, 230) scale(1.1) rotate(10deg);
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 5s infinite;
+  }
+  
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Referencias DOM
+    const tooltip = document.getElementById('map-tooltip');
+    const distritos = document.querySelectorAll('.hover-district, .pulse-circle');
+    const distritoItems = document.querySelectorAll('[data-distrito]');
+    const zonaBtns = document.querySelectorAll('[data-zona]');
+    const mapContainer = document.getElementById('map-container');
+    const mapBase = mapContainer?.querySelector('.map-base');
+    const zoomInBtn = document.querySelector('.zoom-in-btn');
+    
+    // Variables de zoom
+    let zoomLevel = 1;
+    const zoomStep = 0.2;
+    const maxZoom = 2;
+    
+    // Función de zoom
+    if (zoomInBtn && mapBase) {
+      zoomInBtn.addEventListener('click', () => {
+        if (zoomLevel < maxZoom) {
+          zoomLevel += zoomStep;
+          mapBase.style.transform = `scale(${zoomLevel})`;
+        } else {
+          zoomLevel = 1;
+          mapBase.style.transform = '';
+        }
+      });
+    }
+    
+    // Cambiar zonas
+    zonaBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Quitar selección actual
+        zonaBtns.forEach(b => {
+          b.classList.remove('text-orange-600');
+          b.classList.add('text-gray-600', 'hover:text-gray-900');
+          b.querySelector('span')?.remove();
+        });
+        
+        // Activar botón seleccionado
+        btn.classList.remove('text-gray-600', 'hover:text-gray-900');
+        btn.classList.add('text-orange-600');
+        
+        const span = document.createElement('span');
+        span.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-orange-400';
+        btn.appendChild(span);
+        
+        // Efecto visual
+        if (mapBase) {
+          mapBase.style.opacity = '0.7';
+          setTimeout(() => mapBase.style.opacity = '', 500);
+        }
+      });
+    });
+    
+    // Tooltips en mapa
+    if (tooltip && mapContainer) {
+      distritos.forEach(distrito => {
+        distrito.addEventListener('mouseenter', () => {
+          const name = distrito.getAttribute('data-name');
+          const status = distrito.getAttribute('data-status');
+          
+          if (name && tooltip) {
+            // Contenido
+            tooltip.querySelector('.font-medium').textContent = name;
+            tooltip.querySelector('.text-[10px]').textContent = status;
+            
+            // Posición
+            const svgRect = distrito.getBoundingClientRect();
+            const containerRect = mapContainer.getBoundingClientRect();
+            
+            const x = svgRect.left + svgRect.width/2 - containerRect.left;
+            const y = svgRect.top - containerRect.top;
+            
+            tooltip.style.left = `${x}px`;
+            tooltip.style.top = `${y}px`;
+            tooltip.classList.remove('hidden');
+            
+            // Animación entrada
+            tooltip.style.opacity = '0';
+            tooltip.style.transform = 'translate(-50%, -100%) scale(0.95)';
+            setTimeout(() => {
+              tooltip.style.transition = 'all 0.2s ease';
+              tooltip.style.opacity = '1';
+              tooltip.style.transform = 'translate(-50%, -100%) scale(1)';
+            }, 10);
+          }
+        });
+        
+        distrito.addEventListener('mouseleave', () => {
+          tooltip.style.opacity = '0';
+          setTimeout(() => tooltip.classList.add('hidden'), 200);
+        });
+      });
+    }
+    
+    // Sincronizar hover lista-mapa
+    distritoItems.forEach(item => {
+      const id = item.getAttribute('data-distrito');
+      
+      item.addEventListener('mouseenter', () => {
+        const mapaDistrito = document.querySelector(`circle[data-distrito="${id}"]`);
+        if (mapaDistrito) {
+          mapaDistrito.setAttribute('r', (parseFloat(mapaDistrito.getAttribute('r')) * 1.2).toString());
+          mapaDistrito.style.filter = 'drop-shadow(0 0 6px rgba(249,115,22,0.4))';
+        }
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        const mapaDistrito = document.querySelector(`circle[data-distrito="${id}"]`);
+        if (mapaDistrito) {
+          mapaDistrito.setAttribute('r', (parseFloat(mapaDistrito.getAttribute('r')) / 1.2).toString());
+          mapaDistrito.style.filter = '';
+        }
+      });
+    });
+    
+    // Interacción al hacer click en distritos
+    distritos.forEach(distrito => {
+      distrito.addEventListener('click', () => {
+        const id = distrito.getAttribute('data-distrito');
+        
+        // Efecto visual
+        distrito.style.filter = 'brightness(1.2) drop-shadow(0 0 8px rgba(249,115,22,0.6))';
+        setTimeout(() => distrito.style.filter = '', 800);
+        
+        // Scroll a info
+        const infoSection = document.querySelector(`li[data-distrito="${id}"]`);
+        if (infoSection) {
+          infoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          infoSection.classList.add('bg-orange-50');
+          setTimeout(() => infoSection.classList.remove('bg-orange-50'), 1500);
+        }
+      });
+    });
+    
+    // Permitir arrastrar el mapa
+    if (mapBase) {
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+      
+      mapBase.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        const style = window.getComputedStyle(mapBase);
+        initialLeft = parseInt(style.left) || 0;
+        initialTop = parseInt(style.top) || 0;
+        
+        mapBase.style.cursor = 'grabbing';
+      });
+      
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        
+        mapBase.style.left = `${initialLeft + dx}px`;
+        mapBase.style.top = `${initialTop + dy}px`;
+      });
+      
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+        mapBase.style.cursor = 'grab';
+      });
+      
+      mapBase.style.position = 'relative';
+      mapBase.style.cursor = 'grab';
+    }
+  });
+</script>
