@@ -1,3 +1,7 @@
+---
+import ScrollTopButton from '../components/ScrollTopButton.astro';
+import WhatsappButton from '../components/WhatsappButton.astro';		
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -9,6 +13,9 @@
 	</head>
 	<body>
 		<slot />
+		<!-- Botones flotantes -->
+		<WhatsappButton />
+		<ScrollTopButton />
 	</body>
 </html>
 

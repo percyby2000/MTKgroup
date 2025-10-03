@@ -1,0 +1,109 @@
+---
+// ScrollTopButton.astro
+---
+
+<button id="scroll-top-button" aria-label="Volver arriba" class="scroll-top-button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<script>
+  // Función para manejar la visibilidad del botón
+  function setupScrollButton() {
+    const scrollTopButton = document.getElementById('scroll-top-button');
+    
+    if (!scrollTopButton) return;
+    
+    // Función para detectar scroll y mostrar/ocultar el botón
+    function handleScroll() {
+      if (!scrollTopButton) return;
+      if (window.scrollY > 400) {
+        scrollTopButton.classList.add('visible');
+      } else {
+        scrollTopButton.classList.remove('visible');
+      }
+    }
+    // Función para desplazarse suavemente hacia arriba
+    function scrollToTop(e: Event) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Agregar listeners
+    window.addEventListener('scroll', handleScroll);
+    scrollTopButton.addEventListener('click', scrollToTop);
+    
+    // Verificar posición al cargar la página
+    handleScroll();
+  }
+
+  // Asegurarse de que el DOM esté completamente cargado
+  document.addEventListener('DOMContentLoaded', setupScrollButton);
+  
+  // Como Astro puede cargar componentes de forma asíncrona, también intentamos después de la carga
+  if (document.readyState === 'complete') {
+    setupScrollButton();
+  } else {
+    window.addEventListener('load', setupScrollButton);
+  }
+</script>
+
+<style>
+  .scroll-top-button {
+    position: fixed;
+    bottom: 110px; /* Posición por encima del botón de WhatsApp */
+    right: 30px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background-color 0.2s;
+    z-index: 998;
+  }
+  
+  .scroll-top-button.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .scroll-top-button:hover {
+    background-color: #E64A19;
+    transform: translateY(-3px);
+  }
+  
+  .scroll-top-button svg {
+    width: 20px;
+    height: 20px;
+    stroke: white;
+    stroke-width: 3;
+  }
+  
+  @media (max-width: 768px) {
+    .scroll-top-button {
+      width: 40px;
+      height: 40px;
+      right: 20px;
+      bottom: 90px;
+    }
+    
+    .scroll-top-button svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+</style>
