@@ -8,11 +8,12 @@
             <img src="/headerlogo.png" alt="MTK GROUP" class="logo-img" />
         </a>
         
-        <nav class="nav hidden md:flex" id="nav">
-            <a href="#planes" class="nav-link">PLANES</a>
+        <nav class="hidden nav md:flex" id="nav">
+            <a href="/#planes" class="nav-link">PLANES</a>
             <a href="/servicios" class="nav-link">SERVICIOS</a>
-            <a href="#cobertura" class="nav-link">COBERTURA</a>
+            <a href="/cobertura" class="nav-link">COBERTURA</a>
             <a href="/nosotros" class="nav-link">NOSOTROS</a>
+            <a href="https://mintaka-group.vercel.app/" class="nav-link portal-link">MI PORTAL</a>   
         </nav>
         
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
@@ -31,7 +32,7 @@
         <div class="mobile-logo-section">
             <div class="logo-content">
                         <a href="/" class="logo">
-            <img src="/headerlogo.png" alt="MTK GROUP" class="logo-img" />
+            <img src="/logo.png" alt="MTK GROUP" class="logo-img" />
         </a>
             </div>
             <button class="close-btn" id="closeMenuBtn">
@@ -45,22 +46,17 @@
         
         <!-- Navegación principal -->
         <nav class="mobile-main-nav">
-            <a href="#" class="mobile-nav-item">PLANES</a>
+            <a href="/#planes" class="mobile-nav-item">PLANES</a>
             <a href="servicios" class="mobile-nav-item">SERVICIOS</a>
-            <a href="#cobertura" class="mobile-nav-item active">COBERTURA</a>
+            <a href="cobertura" class="mobile-nav-item active">COBERTURA</a>
             <a href="nosotros" class="mobile-nav-item">NOSOTROS</a>
+            <a href="https://mintaka-group.vercel.app/" class="mobile-nav-item portal-link">MI PORTAL</a>   
         </nav>
         
         <!-- Sección inferior con slider preview y redes sociales -->
         <div class="mobile-bottom-section">
             <!-- Preview del contenido -->
-            <div class="mobile-content-preview">
-                <div class="preview-card">
-                    <h3>¿QUÉ ESPERAS?</h3>
-                    <p>CÁMBIATE AQUÍ</p>
-                    <button class="preview-btn">¡Lo quiero!</button>
-                </div>
-            </div>
+
             
             <!-- Redes sociales -->
             <div class="mobile-social-media">
@@ -148,6 +144,33 @@
         color: white;
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+    }
+
+    .nav-link.portal-link {
+        background: #000000;
+        color: #fff;
+        border-radius: 25px;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .nav-link.portal-link:hover {
+        background: #ff7f00;
+        color: #fff;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .mobile-nav-item.portal-link {
+        background: #ff7f00;
+        color: #fff;
+        border-radius: 0;
+        padding-left: 20px;
+    }
+
+    .mobile-nav-item.portal-link:hover {
+        background: #ff7f00;
+        color: #fff;
+        padding-left: 20px;
     }
 
     /* Menú hamburguesa */

@@ -1,0 +1,82 @@
+---
+// /e:/MINTAKAGROUP/mintaka/src/components/Consult.astro
+// Componente Astro: formulario para ingresar dirección y verificar cobertura (mock)
+---
+
+<style>
+    .consult { max-width:520px; margin:0.5rem; font-family: system-ui, sans-serif; }
+    label { display:block; margin-bottom:6px; font-weight:600; }
+    input[type="text"] { width:100%; padding:8px; box-sizing:border-box; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; }
+    button { padding:8px 12px; border:none; background:#0366d6; color:#fff; border-radius:4px; cursor:pointer; }
+    button:disabled { opacity:0.6; cursor:default; }
+    #result { margin-top:12px; padding:10px; border-radius:6px; background:#f6f8fa; color:#24292f; }
+    .available { border-left:4px solid #28a745; padding-left:8px; }
+    .unavailable { border-left:4px solid #d73a49; padding-left:8px; }
+</style>
+
+<div class="consult" aria-live="polite">
+    <h3>Comprobar cobertura de internet</h3>
+    <form id="coverageForm">
+        <label for="address">Ingrese su dirección</label>
+        <input id="address" name="address" type="text" placeholder="Ej. Calle Falsa 123, Barrio Centro" required />
+        <div>
+            <button type="submit">Ver cobertura</button>
+        </div>
+    </form>
+
+    <div id="result" role="status" aria-atomic="true"></div>
+</div>
+
+<script>
+    const form = document.getElementById('coverageForm');
+    const result = document.getElementById('result');
+
+    // Función mock que determina cobertura de forma determinista según la dirección.
+    function mockCheckCoverage(address) {
+        const a = (address || '').trim().toLowerCase();
+        if (!a || a.length < 5) {
+            return { ok: false, message: 'Por favor ingrese una dirección válida.' };
+        }
+        if (/rural|campo|montaña|sierra/.test(a)) {
+            return { ok: true, available: false };
+        }
+        if (/centro|avenida|calle|plaza|barrio|urbana|urbanización|urbanizacion/.test(a)) {
+            return { ok: true, available: true, provider: 'Proveedor Ejemplo S.A.' };
+        }
+        // decisión determinista por suma de códigos
+        let sum = 0;
+        for (let i = 0; i < a.length; i++) sum += a.charCodeAt(i);
+        const available = sum % 2 === 0;
+        return { ok: true, available, provider: available ? 'Proveedor Local' : null };
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const addr = form.address.value.trim();
+        result.className = '';
+        result.textContent = 'Buscando cobertura...';
+        // Aquí puedes llamar a una API real:
+        // const res = await fetch(`/api/check-coverage?address=${encodeURIComponent(addr)}`);
+        // const data = await res.json();
+
+        // Usamos el mock por ahora
+        const data = mockCheckCoverage(addr);
+
+        if (!data.ok) {
+            result.textContent = data.message;
+            return;
+        }
+
+        if (data.available) {
+            result.className = 'available';
+            result.innerHTML = `<strong>Disponible:</strong> La dirección <em>${escapeHtml(addr)}</em> tiene cobertura.<br/>Proveedor: <strong>${escapeHtml(data.provider)}</strong>`;
+        } else {
+            result.className = 'unavailable';
+            result.innerHTML = `<strong>No disponible:</strong> La dirección <em>${escapeHtml(addr)}</em> no tiene cobertura en este momento.`;
+        }
+    });
+</script>

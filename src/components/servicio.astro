@@ -6,45 +6,21 @@ const serviciosReparacion = [
     titulo: "Reparación de Redes",
     descripcion: "Soluciones rápidas y efectivas para problemas de conectividad y rendimiento en redes domésticas y empresariales.",
     icono: "network",
-    imagen: "/img/servicios/reparacion-redes.jpg"
+    imagen: "/mantenimiento.jpg"
   },
   {
     id: "fibra",
     titulo: "Mantenimiento de Fibra Óptica",
     descripcion: "Servicios preventivos y correctivos para garantizar el óptimo funcionamiento de su conexión de fibra óptica.",
     icono: "fiber",
-    imagen: "/img/servicios/mantenimiento-fibra.jpg"
+    imagen: "/obtica.png"
   },
   {
     id: "equipos",
     titulo: "Reparación de Equipos",
     descripcion: "Diagnóstico y reparación de routers, módems, ONT y otros equipos de conectividad para restaurar su funcionamiento.",
     icono: "router",
-    imagen: "/img/servicios/reparacion-equipos.jpg"
-  }
-];
-
-const serviciosMantenimiento = [
-  {
-    id: "preventivo",
-    titulo: "Mantenimiento Preventivo",
-    descripcion: "Inspecciones programadas para prevenir fallos, optimizar la conexión y prolongar la vida útil de sus equipos.",
-    icono: "shield",
-    imagen: "/img/servicios/mantenimiento-preventivo.jpg"
-  },
-  {
-    id: "optimizacion",
-    titulo: "Optimización de Redes",
-    descripcion: "Mejora del rendimiento de su red mediante configuraciones avanzadas, distribución de canales y puntos de acceso.",
-    icono: "speed",
-    imagen: "/img/servicios/optimizacion-redes.jpg"
-  },
-  {
-    id: "monitoreo",
-    titulo: "Monitoreo de Rendimiento",
-    descripcion: "Seguimiento constante del estado de su conexión para detectar y solucionar problemas antes de que afecten su servicio.",
-    icono: "monitor",
-    imagen: "/img/servicios/monitoreo-rendimiento.jpg"
+    imagen: "/manteni.jpg"
   }
 ];
 
@@ -54,21 +30,21 @@ const otrosServicios = [
     titulo: "Instalación de Equipos",
     descripcion: "Servicio profesional de instalación de equipos de networking, WiFi mesh, cámaras de seguridad y más.",
     icono: "install",
-    imagen: "/img/servicios/instalacion-equipos.jpg"
+    imagen: "/equipos.jpeg"
   },
   {
     id: "cableado",
     titulo: "Cableado Estructurado",
     descripcion: "Diseño e implementación de sistemas de cableado para hogares y empresas con estándares de calidad.",
     icono: "cable",
-    imagen: "/img/servicios/cableado-estructurado.jpg"
+    imagen: "/cableado.jpg"
   },
   {
     id: "consultoria",
     titulo: "Consultoría Tecnológica",
     descripcion: "Asesoramiento experto para implementación de soluciones de conectividad adaptadas a sus necesidades específicas.",
     icono: "consult",
-    imagen: "/img/servicios/consultoria-tecnologica.jpg"
+    imagen: "/consultoria.jpg"
   }
 ];
 
@@ -124,45 +100,12 @@ const getIconSvg = (iconName: string) => {
             <div class="p-6">
               <h4 class="text-xl font-semibold mb-3 text-gray-800">{servicio.titulo}</h4>
               <p class="text-gray-600 mb-4">{servicio.descripcion}</p>
-              <a href={`/servicios/${servicio.id}`} class="inline-flex items-center text-orange-500 hover:text-orange-700 font-medium">
-                Más información
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- Servicios de Mantenimiento -->
-    <div class="mb-16">
-      <h3 class="text-2xl font-bold text-gray-800 mb-8 relative inline-block">
-        Servicios de Mantenimiento
-        <span class="absolute bottom-0 left-0 w-full h-1 bg-orange-500 rounded-full"></span>
-      </h3>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {serviciosMantenimiento.map(servicio => (
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-xl">
-            <div class="h-48 overflow-hidden relative">
-              <img 
-                src={servicio.imagen || `/img/servicios/default.jpg`}
-                alt={servicio.titulo}
-                class="w-full h-full object-cover transition-transform hover:scale-105"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div class="absolute bottom-4 left-4 bg-orange-500 p-2 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <Fragment set:html={getIconSvg(servicio.icono)} />
-                </svg>
-              </div>
-            </div>
-            <div class="p-6">
-              <h4 class="text-xl font-semibold mb-3 text-gray-800">{servicio.titulo}</h4>
-              <p class="text-gray-600 mb-4">{servicio.descripcion}</p>
-              <a href={`/servicios/${servicio.id}`} class="inline-flex items-center text-orange-500 hover:text-orange-700 font-medium">
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(`Hola, quiero más información sobre el servicio: ${servicio.titulo}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center text-orange-500 hover:text-orange-700 font-medium"
+              >
                 Más información
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
